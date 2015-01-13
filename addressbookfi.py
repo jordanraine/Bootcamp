@@ -8,10 +8,11 @@ phone_book = {}
 f = open('address_book.txt', 'r')
 
 #load txt data into dictionary
-phone_book=json.load(f)
+#phone_book=json.load(f)
 
 #close file
 f.close()
+
 
 def clear():
     sys.stdout.write('\033[2J')
@@ -22,7 +23,7 @@ def clear():
 def add(**kwargs):
     phone_book[name_input]=phone_input
     print '%s has been added to address book' % name_input
-    save()
+    
     
 #function for printing out dictionary
 def listy():
@@ -37,7 +38,7 @@ def remove():
     if x in phone_book:
         del phone_book[x]
         print '%s has been removed from address book' % x
-        save()
+        
     else:
         print "did not find contact in address book, please try again!"
         remove()
@@ -56,7 +57,7 @@ print 'My address book.'
 #main loop
 while True:
     print ''
-    input1=raw_input('What would you like to do? to do? (add, remove, list, quit) ') 
+    input1=raw_input('What would you like to do? to do? (add, remove, list, quit, load, save) ') 
 
     if input1=='add':
         name_input=raw_input('Name: ')
@@ -73,9 +74,19 @@ while True:
         remove()
 
     elif input1=='quit':
+        
         print 'bye now!'
         print ''
         break
-
+    elif input1=='save':
+        print 'saving contact list'
+        save()
+    elif input1=='load':
+        f = open("address_book.txt", 'r')
+        phone_book=json.load(f)
+        print 'loading contact list from .txt file'
+           
+        
+    
     else:
         print "Incorrect entry, please try again."
